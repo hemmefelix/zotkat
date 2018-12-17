@@ -12,7 +12,7 @@
 	"displayOptions": {
 		"Gedruckte Ressource": false
 	},
-	"lastUpdated": "2018-03-18 15:25:00"
+	"lastUpdated": "2018-08-25 13:00:00"
 }
 
 
@@ -206,7 +206,7 @@ function doExport() {
 		writeLine("1505", "$erda");
 		
 		//item.ISBN --> 2000 ISBN
-		if (item.ISBN && physicalForm === "A") {
+		if (item.ISBN && physicalForm === "A" && !article) {
 			writeLine("2000", item.ISBN);
 		}
 		
@@ -309,12 +309,12 @@ function doExport() {
 		//Angaben zu illustrierendem Inhalt, muss händisch weiter gefüllt werden
 		writeLine("4061", "");
 		
-		//4070 $v Bandzählung $j Jahr $h Heftnummer $p Seitenzahl
+		//4070 $v Bandzählung $j Jahr $a Heftnummer $p Seitenzahl
 		if (item.itemType == "journalArticle" || item.itemType == "magazineArticle" || item.itemType == "bookSection") {
 			var volumeyearissuepage = "";
 			if (item.volume) { volumeyearissuepage += "$v" + item.volume; }
 			if (date.year !== undefined) { volumeyearissuepage +=  "$j" + date.year; }
-			if (item.issue) { volumeyearissuepage += "$h" + item.issue; }
+			if (item.issue) { volumeyearissuepage += "$a" + item.issue; }
 			if (item.pages) { volumeyearissuepage += "$p" + item.pages; }
 			
 			writeLine("4070", volumeyearissuepage);
@@ -345,9 +345,13 @@ function doExport() {
 		//Sonstige Anmerkungen (manuell eintragen) --> 4201
 		writeLine("4201", "");
 		
-		//Inhaltliche Zusammenfassung -->4207
+		//Inhaltliche Zusammenfassung --> 4207/4209
 		if (item.abstractNote && exportAbstract) {
-			writeLine("4207", item.abstractNote);
+			if (item.abstractNote.length <= 600) {
+				writeLine("4207", item.abstractNote);
+			} else {
+				writeLine("4209", item.abstractNote);
+			}
 		}
 		
 		//item.publicationTitle --> 4241 Beziehungen zur größeren Einheit 
