@@ -99,13 +99,17 @@ var journalMapping = {
 	"1759-7331" : "!633816477!", // Quantitative Economics
 	"1406-099X" : "!543593630!", // Baltic Journal of Economics
 };
+
+/*
 var nachnameMapping = {
-	/*"Hemingway" : "!16137493X!" // http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=16137493X&INDEXSET=1*/
+	"Hemingway" : "!16137493X!" // http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=16137493X&INDEXSET=1
 };
 var nameMapping = {
-	/*"Berners-Lee, Tim" : "!18195804X!", // http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=18195804X&INDEXSET=1
-	"Laitinen, Erkki K." : "!060285265!"*/
+	"Berners-Lee, Tim" : "!18195804X!", // http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=18195804X&INDEXSET=1
+	"Laitinen, Erkki K." : "!060285265!"
 };
+*/
+
 //Sprachcodes nach ISO 639-2
 //https://www.gbv.de/bibliotheken/verbundbibliotheken/02Verbund/01Erschliessung/02Richtlinien/02KatRichtRDA/anhaenge/anhang-sprachcodes
 var languageMapping = {
@@ -117,10 +121,13 @@ var issnLangMapping = {
 	"0006-1972" : "ger",
 	"1365-1005" : "eng"
 };
+
+/*
 var issnVolumeMapping = {
-	/*"2031-5929" : "N.S.",
-	"2031-5922" : "A.S."*/
+	"2031-5929" : "N.S.",
+	"2031-5922" : "A.S."
  };
+*/
 
 // Da alles asynchron ablaufen kann:
 //Jede Lookup einer AutorIn zählt 1 zu count
