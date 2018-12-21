@@ -16,7 +16,7 @@
 /*
 	***** BEGIN LICENSE BLOCK *****
 
-	Copyright Â© 2017 Philipp Zumstein
+	Copyright © 2017 Philipp Zumstein
 
 	This file is part of Zotero.
 
@@ -79,7 +79,7 @@ var journalMapping = {
 	"2314-7210" : "!837953758!", // Future Business Journal
 	"1822-8038" : "!668707917!", // Intellectual Economics
 	"1822-8011" : "!668707917!", // Intellectual Economics
-	"0185-1667" : "!612652823!", // InvestigaciÃ³n EconÃ³mica
+	"0185-1667" : "!612652823!", // Investigación Económica
 	"2214-8515" : "!823904024!", // Journal of African Trade
 	"2218-0648" : "!61879364X!", // Journal of Economics, Finance and Administrative Science
 	"2077-1886" : "!61879364X!", // Journal of Economics, Finance and Administrative Science
@@ -100,15 +100,12 @@ var journalMapping = {
 	"1406-099X" : "!543593630!", // Baltic Journal of Economics
 };
 
-/*
 var nachnameMapping = {
-	"Hemingway" : "!16137493X!" // http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=16137493X&INDEXSET=1
 };
+
 var nameMapping = {
-	"Berners-Lee, Tim" : "!18195804X!", // http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=18195804X&INDEXSET=1
-	"Laitinen, Erkki K." : "!060285265!"
 };
-*/
+
 
 //Sprachcodes nach ISO 639-2
 //https://www.gbv.de/bibliotheken/verbundbibliotheken/02Verbund/01Erschliessung/02Richtlinien/02KatRichtRDA/anhaenge/anhang-sprachcodes
@@ -122,15 +119,13 @@ var issnLangMapping = {
 	"1365-1005" : "eng"
 };
 
-/*
+
 var issnVolumeMapping = {
-	"2031-5929" : "N.S.",
-	"2031-5922" : "A.S."
- };
-*/
+};
+
 
 // Da alles asynchron ablaufen kann:
-//Jede Lookup einer AutorIn zÃ¤hlt 1 zu count
+//Jede Lookup einer AutorIn zählt 1 zu count
 //und nach Erledigung wieder 1 weg. Der
 //Startwert ist 1 und nach Erledigung aller
 //anderen Zeilen wird 1 subtrahiert. Erst
@@ -138,20 +133,20 @@ var issnVolumeMapping = {
 var count = 1;
 var outputText = "";
 
+
 function writeLine(code, line) {
 
 	//Halbgeviertstrich ersetzen
-	line = line.replace(/â€“/g, '-');
+	line = line.replace(/–/g, '-');
 
 	//Text zusammensetzen
 	outputText += code + " " + line + "\n";
+}
+/*
 
-/* |-------------------------------------------------------|
- * | Lookup fÃ¼r Autoren wird in der ZBW nicht durchgefÃ¼hrt |
- * |-------------------------------------------------------|
- */
+// Lookup für Autoren wird in der ZBW nicht durchgeführt
 
-	//Lookup fÃ¼r Autoren
+ 	//Lookup für Autoren
 	if ((code == "3000" || code == "3010") && line[0] != "!") {
 		count++;
 		var authorName = line.substring(0,line.indexOf("$"));
@@ -172,6 +167,8 @@ function writeLine(code, line) {
 		});
 	}
 }
+*/
+// hier ausgeschnitten
 
 function doExport() {
 	var item;
@@ -199,7 +196,7 @@ function doExport() {
 		switch (item.itemType) {
 			case "journalArticle":
 			case "bookSection":
-			case "magazineArticle": // wird bei der Erfassung von Rezensionen verwendet. Eintragsart "Magazin-Artikel" wird manuell geÃ¤ndert.
+			case "magazineArticle": // wird bei der Erfassung von Rezensionen verwendet. Eintragsart "Magazin-Artikel" wird manuell geändert.
 			case "newspaperArticle":
 			case "encyclopediaArticle":
 				article = true;
@@ -222,7 +219,7 @@ function doExport() {
 			//item.type --> 0502 Medientyp
 			writeLine("0502", "ohne Hilfsmittel zu benutzen$bn");
 			
-			//item.type --> 0503 DatentrÃ¤gertyp
+			//item.type --> 0503 Datenträgertyp
 			writeLine("0503", "Band$bnc");
 			
 		}
@@ -232,7 +229,7 @@ function doExport() {
 			//item.type --> 0502 Medientyp
 			writeLine("0502", "Computermedien$bc");
 			
-			//item.type --> 0503 DatentrÃ¤gertyp
+			//item.type --> 0503 Datenträgertyp
 			writeLine("0503", "Online-Ressource$bcr");
 			
 		}
@@ -291,7 +288,7 @@ function doExport() {
 			titleStatement += item.title.replace(/\s*:\s*/,'$d');
 		}
 		
-		//Sortierzeichen hinzufÃ¼gen, vgl. https://github.com/UB-Mannheim/zotkat/files/137992/ARTIKEL.pdf
+		//Sortierzeichen hinzufügen, vgl. https://github.com/UB-Mannheim/zotkat/files/137992/ARTIKEL.pdf
 		if (item.language == "ger" || !item.language) {
 			titleStatement = titleStatement.replace(/^(Der|Die|Das|Des|Dem|Den|Ein|Eines|Einem|Eine|Einen|Einer) ([^@])/, "$1 @$2");
 		}
@@ -363,7 +360,7 @@ function doExport() {
 			writeLine("4030", publicationStatement);
 		}
 				
-		//4070 $v BandzÃ¤hlung $j Jahr $a Heftnummer $p Seitenzahl
+		//4070 $v Bandzählung $j Jahr $a Heftnummer $p Seitenzahl
 		if (item.itemType == "journalArticle" || item.itemType == "magazineArticle" || item.itemType == "bookSection") {
 			var volumeyearissuepage = "";
 			if (item.volume) { volumeyearissuepage += "$v" + item.volume; }
@@ -405,7 +402,7 @@ function doExport() {
 		}
 
 		
-		//item.publicationTitle --> 4241 Beziehungen zur grÃ¶ÃŸeren Einheit 
+		//item.publicationTitle --> 4241 Beziehungen zur größeren Einheit 
 		if (item.itemType == "journalArticle" || item.itemType == "magazineArticle" || item.itemType == "bookSection") {
 			if (item.ISSN && journalMapping[ZU.cleanISSN(item.ISSN)]) {
 				writeLine("4241", "Enthalten in" + journalMapping[ZU.cleanISSN(item.ISSN)]);
@@ -414,9 +411,9 @@ function doExport() {
 			}
 		}
 		
-		//4261 Themenbeziehungen (Beziehung zu der VerÃ¶ffentlichung, die beschrieben wird)|case:magazineArticle
+		//4261 Themenbeziehungen (Beziehung zu der Veröffentlichung, die beschrieben wird)|case:magazineArticle
 		if (item.itemType == "magazineArticle") {
-			writeLine("4261", "Rezension von!!"); // zwischen den Ausrufezeichen noch die PPN des rezensierten Werkes manuell einfÃ¼gen.
+			writeLine("4261", "Rezension von!!"); // zwischen den Ausrufezeichen noch die PPN des rezensierten Werkes manuell einfügen.
 		}
 				
 		//SSG-Nummer --> 5056
@@ -424,10 +421,10 @@ function doExport() {
 			writeLine("5056", ssgNummer);
 		}
 
-		//5249 Code fÃ¼r VerÃ¶ffentlichungsart (STW)
+		//5249 Code für Veröffentlichungsart (STW)
 		writeLine ("5249", "$b49$cAufsatz in Zeitschrift$dArticle");
 
-		//lokale SchlagwÃ¶rter und JEL-Codes --> 6556/5060
+		//lokale Schlagwörter und JEL-Codes --> 6556/5060
 		var jels = [];
 		var keywords = [];
 		for (i=0; i<item.tags.length; i++) {
